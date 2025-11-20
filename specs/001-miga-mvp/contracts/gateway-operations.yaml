@@ -1,0 +1,184 @@
+openapi: 3.0.3
+info:
+  title: MIGA Gateway Operations Contracts
+  description: User interaction contracts for mindful pause functionality
+  version: 1.0.0
+
+components:
+  schemas:
+    GatewayRequest:
+      type: object
+      required:
+        - appId
+        - timerDuration
+      properties:
+        appId:
+          type: string
+          enum: [instagram, tiktok, facebook, twitter, youtube, snapchat, linkedin, reddit]
+          description: Target social media app identifier
+        timerDuration:
+          type: integer
+          minimum: 15
+          maximum: 45
+          default: 15
+          description: Mindful pause duration in seconds
+        contentCategories:
+          type: array
+          items:
+            type: string
+            enum: [stoicism, productivity, mindfulness, motivation, balance]
+          description: Preferred content categories for this session
+
+    GatewayResponse:
+      type: object
+      required:
+        - sessionId
+        - content
+        - timerStart
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+          description: Unique identifier for this session
+        content:
+          $ref: '#/components/schemas/Content'
+        timerStart:
+          type: integer
+          description: Unix timestamp of timer start
+        estimatedCompletion:
+          type: integer
+          description: Unix timestamp of estimated timer completion
+
+    Content:
+      type: object
+      required:
+        - id
+        - type
+        - text
+        - category
+      properties:
+        id:
+          type: string
+          description: Content identifier
+        type:
+          type: string
+          enum: [quote, excerpt, prompt]
+        text:
+          type: string
+          minLength: 50
+          maxLength: 750
+        category:
+          type: string
+          enum: [stoicism, productivity, mindfulness, motivation, balance]
+        author:
+          type: string
+          nullable: true
+        readingTime:
+          type: integer
+          minimum: 10
+          maximum: 60
+
+    ActionRequest:
+      type: object
+      required:
+        - sessionId
+        - action
+        - timestamp
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+          description: Session identifier from GatewayResponse
+        action:
+          type: string
+          enum: [exit, proceed, deepen]
+          description: User action taken
+        timestamp:
+          type: integer
+          description: Unix timestamp of action
+        timeSpent:
+          type: integer
+          minimum: 0
+          maximum: 50
+          description: Actual time spent in mindful state
+
+    ActionResponse:
+      type: object
+      required:
+        - sessionId
+        - recorded
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+        recorded:
+          type: boolean
+          description: Whether the action was successfully recorded
+        nextContent:
+          $ref: '#/components/schemas/Content'
+          nullable: true
+          description: Next content item (for deepen action only)
+
+paths:
+  /gateway/start:
+    post:
+      summary: Start a mindful pause session
+      description: Triggers display of gateway screen for social media app interception
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayRequest'
+      responses:
+        '200':
+          description: Gateway session started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayResponse'
+        '400':
+          description: Invalid request parameters
+        '404':
+          description: App not found or content unavailable
+
+  /gateway/action:
+    post:
+      summary: Record user action from gateway session
+      description: Records exit/proceed/deepen actions and updates session analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRequest'
+      responses:
+        '200':
+          description: Action recorded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionResponse'
+        '404':
+          description: Session not found
+        '410':
+          description: Session already completed
+
+  /apps/launch/{appId}:
+    post:
+      summary: Launch external social media application
+      description: Open target social media app via custom URL scheme
+      parameters:
+        - name: appId
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [instagram, tiktok, facebook, twitter, youtube, snapchat, linkedin, reddit]
+      responses:
+        '200':
+          description: App launched successfully
+        '404':
+          description: App not installed or URL scheme not available
+        '503':
+          description: Platform-level restriction (e.g., parental controls)

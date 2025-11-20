@@ -5,6 +5,14 @@
 **Status**: Draft
 **Input**: User description: "Implement MIGA MVP - Mindful Gateway Timer and Content System"
 
+## Clarifications
+
+### Session 2025-11-20
+- Q: Content Strategy: What should be the fallback strategy for first-time users without network access? → A: Option A - Bundle 20-30 curated mindfulness content items (quotes, affirmations) as app assets for immediate offline-first experience
+- Q: Data Scale & Session Retention: How should the system handle data persistence scale for session tracking and statistics calculation? → A: Option B - Retain 30 days of raw session data, aggregate older data into daily/weekly summaries
+- Q: URL Scheme Integration Strategy: How should the system handle custom or unknown social media apps and potential URL scheme conflicts? → A: Option A - Hardcode only predefined major social apps (Instagram, TikTok, Facebook, etc.) - no custom additions
+- Q: MVP Social App Scope: Which social media platforms should be supported in the MVP (prioritized for development effort)? → A: Option A - Comprehensive: Instagram, TikTok, Facebook, Twitter/X, YouTube, Snapchat, LinkedIn, Reddit
+
 ## User Scenarios & Testing *(mandatory)*
 
 <!--
@@ -116,6 +124,7 @@ A user adjusts gateway timer duration, content preferences, and app management t
 - **FR-003**: System MUST provide device-specific instructions for manually hiding selected app icons using biometric/passcode authentication
 - **FR-004**: System MUST intercept attempts to launch hidden social media apps and present full-screen mindfulness gateway screen instead
 - **FR-005**: System MUST display randomly selected mindfulness content (quotes, affirmations, articles) during the gateway timer
+- **FR-005b**: System MUST bundle 20-30 curated mindfulness content items as app assets for immediate offline-first experience
 - **FR-006**: System MUST enforce configurable 15-45 second timer countdown before enabling "proceed to app" action
 - **FR-007**: System MUST provide three clear action choices: "Exit to Focus" (immediate), "Deepen the Pause" (reset timer), "Proceed to [App]" (timer-gated)
 - **FR-008**: System MUST track and persist user interactions including session starts, exits, completion rates, and time spent
@@ -129,7 +138,7 @@ A user adjusts gateway timer duration, content preferences, and app management t
 
 Integration Requirements:
 
-- **FR-016**: System MUST successfully trigger external app URL schemes for all major social media platforms (Instagram, TikTok, Facebook, Twitter, YouTube, etc.)
+- **FR-016**: System MUST successfully trigger external app URL schemes for comprehensive social media coverage: Instagram, TikTok, Facebook, Twitter/X, YouTube, Snapchat, LinkedIn, Reddit
 - **FR-017**: System MUST integrate with Firebase for content delivery, remote configuration, and anonymized event analytics
 - **FR-018**: System MUST prepare StoreKit integration for trial period management and one-time purchase monetization
 

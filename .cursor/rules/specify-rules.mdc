@@ -1,0 +1,29 @@
+# MIGASK1 Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2025-11-20
+
+## Active Technologies
+
+- Swift 5.9 (iOS 17.0+ compatible) + SwiftUI + MVVM + Combine (reactive state management) (001-miga-mvp)
+
+## Project Structure
+
+```text
+src/
+tests/
+```
+
+## Commands
+
+# Add commands for Swift 5.9 (iOS 17.0+ compatible)
+
+## Code Style
+
+Swift 5.9 (iOS 17.0+ compatible): Follow standard conventions
+
+## Recent Changes
+
+- 001-miga-mvp: Added Swift 5.9 (iOS 17.0+ compatible) + SwiftUI + MVVM + Combine (reactive state management)
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
