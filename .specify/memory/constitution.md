@@ -1,50 +1,104 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# MIGA Constitution
+<!-- MIGA: Mindful Gateway to Social Media - iOS App Constitution -->
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Mindful by Design (NON-NEGOTIABLE)
+Every component must embody the mindful UX philosophy: Neutral palette, calming animations, non-punitive messaging; All UI decisions must support intentional technology use; Copy tone always supportive and empowering; No red/orange colors except for critical warnings; Generous whitespace and slow, deliberate interactions
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Behavioural Validation Over Velocity
+Development prioritizes behavioral impact validation over rapid feature delivery; Every feature must include analytics tracking and retrospective evaluation; MVP features (Gateway Timer, Content, Analytics) must be functionally complete before enhancement; Performance targets: <1s main screen load, 99% crash-free sessions, 60%+ timer completion rate
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Test-First iOS Development (NON-NEGOTIABLE)
+Unit testing mandatory for all ViewModels, Models, and Core Logic; UI testing for critical user journeys (Onboarding flow, Gateway interaction); Analytics event tracking must be testably correct; Red-Green-Refactor cycle strictly enforced; Integration testing required for Firebase/Firestore interactions
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Privacy-First Implementation
+No remote user data storage except analytics aggregates; Local-only identifiers for tracking; Minimal Firebase Analytics usage; All data mirrors locally in Core Data; User's personal information never leaves device except for anonymous behavioral patterns; Transparent privacy disclosures during onboarding
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Modular MVVM Architecture
+Each feature implemented as standalone module with clear MVVM separation; ViewModels per feature with observable state management; Clean data flow: View → ViewModel → (Local/Firestore) → Response; Dependencies properly injected; Easy to test and maintain; Scalable beyond MVP scope
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### VI. Intention Over Restriction
+MIGA serves as behavioral guide, never gatekeeper; All interventions voluntary and mindful; Exit paths always available; Analytics track only positive behavioral choices; App Store compliance: Emphasize voluntary mindfulness, not app blocking; User agency paramount in all interactions
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### VII. Firebase Integration Standards
+Firestore content sync optional, must work offline; Firebase Remote Config for content category selection; StoreKit integration for monetization; Crashlytics for reliability monitoring; All third-party integrations must have offline fallbacks; Performance monitoring for Firebase operations
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Additional Constraints
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Technology Stack (MANDATORY)
+- **Frontend**: SwiftUI + MVVM + Combine (iOS 17.0+, Xcode 15.0+)
+- **Local Storage**: Core Data + UserDefaults (no custom databases)
+- **Backend**: Firebase Firestore + Firebase Remote Config + Crashlytics
+- **Monetization**: StoreKit 2 (one-time purchase model)
+- **Integration**: Custom URL Schemes only (no UIScene/UIApplication shared linkages)
+- **Deployment**: Apple Developer Program + TestFlight + App Store Connect
+
+### Security & Privacy Standards
+- **Data Minimization**: Analytics events contain no PII, only behavioral aggregates
+- **Local Encryption**: All Core Data stores encrypted at-rest
+- **Sandbox Compliance**: All iOS sandbox restrictions respected for app hiding mechanisms
+- **GDPR Compliance**: Transparent data practices, user data never sold or shared
+- **App Store Requirements**: Voluntary usage interventions only, clear recovery pathways
+
+### Performance Standards
+- **Cold Launch**: < 2s to main screen (with cached content)
+- **Timer Animation**: Smooth 60fps circular progress bar
+- **Memory Usage**: < 50MB resident memory on iPhone 13+
+- **Offline Grace Period**: Full functionality for 30 days without network
+- **Battery Impact**: < 5% additional daily drain when active
+
+### App Store Compliance
+- **No App Blocking**: MIGA positions as "mindfulness assistant" not "app blocker"
+- **Supervision Avoidance**: Clear education that app hiding requires user agency and biometric authentication
+- **Reviews Process**: All submissions highlight voluntary nature, never mandatory restrictions
+
+## Development Workflow
+
+### Specify Framework Implementation
+- **Feature Management**: All new features created using `.specify/scripts/bash/create-new-feature.sh`
+- **Branch Naming**: `###-descriptive-name` format with auto-number assignment
+- **Specification First**: Every feature starts with comprehensive spec.md in `/specs/###-feature-name/`
+- **Memory Integration**: All documents stored in `.specify/memory/` with project context
+
+### Code Review Process
+- **Pre-merge Requirements**: Unit tests written and passing; UI tests added for new screens
+- **Constitution Compliance**: Constitution reviewed against each PR; Behavioral validation required
+- **Performance Gate**: 99% crash-free sessions maintained; Main screen load <1s
+- **Privacy Review**: All Firebase/analytics usage approved; No new PII exposure introduced
+
+### Quality Gates by Phase
+- **Development Phase**: Constitution compliance confirmed; Tests failing initially but written
+- **Implementation Phase**: Red-Green cycle completion; All acceptance criteria met via tests
+- **Integration Phase**: Firebase testing passed; Offline functionality confirmed; Performance benchmarks met
+- **TestFlight Release**: Full user journey QA complete; Analytics events validated; App Store compliance confirmed
+
+### Testing Standards
+- **Unit Test Coverage**: All ViewModels and Models 100%; Core logic >90%
+- **Integration Tests**: Firebase/Firestore interactions; URL scheme launching; Core Data operations
+- **UI Tests**: Onboarding flow completion; Gateway timer functionality; App exit scenarios
+- **Performance Tests**: Launch time validation; Memory usage monitoring; Animation smoothness
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+### Constitution Authority
+This Constitution supersedes all other development practices and frameworks. When conflicts arise between this Constitution and external guidelines, the Constitution prevails. Constitution compliance is mandatory for all code contributions and architecture decisions.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+### Review & Enforcement Rules
+- **All PRs must demonstrate Constitution compliance**; Code reviews explicitly verify adherence to Core Principles
+- **Complexity must be justified** through Constitution principle documentation; YAGNI principle strictly enforced
+- **Behavioral validation mandatory** for all features; Retrospective analysis required for user-facing changes
+- **Use PRD.md and UX-Design.md** for runtime development guidance during implementation
+
+### Amendment Process
+- **Amendments require**: Constitution change proposal → Behavioral impact assessment → PRD/UX alignment verification → Implementation planning
+- **Approval requires**: Technical feasibility confirmed, retrospective evaluation framework established, migration plan documented
+- **Breaking changes**: Full TestFlight cycle required for validation, App Store compliance reassessed
+
+### Runtime Guidance Hierarchy
+1. **Primary**: This Constitution (governing principles)
+2. **Secondary**: PRD.md (detailed requirements and MVP scope)
+3. **Tertiary**: UX-Design.md (implementation specifications and UI details)
+4. **Reference**: Generated specifications in `/specs/` directory for specific feature implementations
+
+**Version**: 1.0.0 | **Ratified**: 2025-11-20 | **Last Amended**: 2025-11-20
